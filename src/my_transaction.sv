@@ -1,0 +1,52 @@
+class my_transaction extends uvm_sequence_item;
+
+	rand logic  [`AW-1:0] AWADDR;
+	rand logic AWVALID;
+	logic AWREADY;
+
+	rand logic [`DW-1:0] WDATA;
+	rand logic [(`DW/8)-1:0] WSTRB;
+	rand logic WVALID;
+	logic WREADY;
+
+	logic [1:0] BRESP;
+	logic BVALID;
+	rand logic BREADY;
+
+	rand logic [`AW-1:0] ARADDR;
+	rand logic ARVALID;
+	logic  ARREADY;
+
+	logic [`DW-1:0] RDATA;
+	logic [1:0] RRESP;
+	logic RVALID;
+	rand logic RREADY;
+
+	bit rst;
+
+	function new (string name="my_trans");
+		super.new(name);
+	endfunction
+
+	`uvm_object_utils_begin(my_transaction)
+		`uvm_field_int(rst, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(AWADDR, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(AWVALID, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(AWREADY, UVM_ALL_ON)
+		`uvm_field_int(WDATA, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(WSTRB, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(WVALID, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(WREADY, UVM_ALL_ON)
+		`uvm_field_int(BREADY, UVM_ALL_ON)
+		`uvm_field_int(BVALID, UVM_ALL_ON)
+		`uvm_field_int(BREADY, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(ARADDR, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(ARVALID, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(ARREADY, UVM_ALL_ON)
+		`uvm_field_int(RDATA, UVM_ALL_ON)
+		`uvm_field_int(RRESP, UVM_ALL_ON)
+		`uvm_field_int(RVALID, UVM_ALL_ON)
+		`uvm_field_int(RREADY, UVM_ALL_ON|UVM_NOCOMPARE)
+	`uvm_object_utils_end
+endclass
+
