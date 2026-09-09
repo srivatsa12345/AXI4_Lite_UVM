@@ -35,14 +35,14 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 	endtask
 
 	task wr_addr(my_transaction tr);
-		`uvm_info("DRV",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d", req.AWADDR, req.AWPROT, req.AWVALID),UVM_MEDIUM)
+		`uvm_info("DRV",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d", tr.AWADDR, tr.AWPROT, tr.AWVALID),UVM_MEDIUM)
 		vif.cb_drv.AWADDR<=tr.AWADDR;
 		vif.cb_drv.AWPROT<=tr.AWPROT;
 		vif.cb_drv.AWVALID<=tr.AWVALID;
 	endtask
 
 	task wr_data(my_transaction tr);
-		`uvm_info("DRV",$sformatf("WDATA=%0d, WSTRB=%0b, WVALID=%0d", req.WDATA, req.WSTRB, req.WVALID),UVM_MEDIUM)
+		`uvm_info("DRV",$sformatf("WDATA=%0d, WSTRB=%0b, WVALID=%0d", tr.WDATA, tr.WSTRB, tr.WVALID),UVM_MEDIUM)
 		vif.cb_drv.WDATA<=tr.WDATA;
 		vif.cb_drv.WSTRB<=tr.WSTRB;	
 		vif.cb_drv.WVALID<=tr.WVALID;

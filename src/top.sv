@@ -9,6 +9,35 @@ module top;
 	always #5 clk=~clk;
 
 	my_if vif(.clk(clk),.rst(rst));
+
+	axi4_lite_slave m1 #(.DATA_WIDTH(`DW),.ADDR_WIDTH(`AW),.MEM_DEPTH(`MD),.DEFAULT_PROT(000)) (
+	.ACLK(clk),.ARESETn(rst),
+
+	.AWADDR(vif.AWADDR),
+        .AWPROT(vif.AWPROT),
+   	.AWVALID(vif.AWVALID),
+    	.AWREADY(vif.AWREADY),
+
+    	.WDATA(vif.WDATA),
+    	.WSTRB(vif.WSTRB),
+    	.WVALID(vif.WVALID),
+        .WREADY(vif.WREADY),
+
+        .BRESP(vif.BRESP),
+    	.BVALID(vif.BVALID),
+        .BREADY(vif.BREADY),
+
+        .ARADDR(vif.ARADDR),
+        .ARPROT(vif.ARPROT),
+        .ARVALID(vif.ARVALID),
+        .ARREADY(vif.ARREADY),
+
+        .RDATA(vif.RDATA),
+        .RRESP(vif.RRESP),
+        .RVALID(vif.RVALID),
+        .RREADY(vif.RREADY)
+	);
+
 	
 	initial begin
 		uvm_config_db#(virtual my_if)::set(null,"*","vif",vif);

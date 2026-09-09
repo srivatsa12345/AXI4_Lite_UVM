@@ -18,8 +18,8 @@ class environment extends uvm_env;
 	endfunction
 
 	function void connect_phase(uvm_phase phase);
-		act.mon.ap.connect(sc.in_fifo.analysis_export);
-		pass.mon.ap.connect(sc.out_fifo.analysis_export);
+		act.mon.ap.connect(sc.in_mon.analysis_export);
+		pass.mon.ap.connect(sc.out_mon.analysis_export);
 		act.mon.ap.connect(sub.analysis_export);
 		pass.mon.ap.connect(sub.out_mon.analysis_export);
 	endfunction

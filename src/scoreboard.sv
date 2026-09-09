@@ -1,9 +1,9 @@
-`uvm_analysis _imp_decl(_out)
+`uvm_analysis_imp_decl(_out)
 
 class scoreboard extends uvm_scoreboard;
 
 	`uvm_component_utils(scoreboard)
-	bit [7:0] mem [5:0];
+	bit [7:0] mem [63:0];
 
 	uvm_analysis_imp #(my_transaction, scoreboard) in_mon;
 	uvm_analysis_imp_out #(my_transaction, scoreboard) out_mon;
@@ -55,15 +55,15 @@ class scoreboard extends uvm_scoreboard;
 		++TOTAL;
 		if(inp.compare(out)) begin
 			++MATCH;
-			`uvm_info("SCOREBOARD",$sformatf("DUT: AWREADY, WREADY, BRESP, BVALID, ARREADY, RDATA, RRESP, RVALID\nREF: AWREADY, WREADY, BRESP, BVALID, ARREADY, RDATA, RRESP, RVALID", out.AWREADY, out.WREADY, out.BRESP, out.BVALID, out.ARREADY, out.RDATA, out.RRESP, out.RVALID, inp.AWREADY, inp.WREADY, inp.BRESP, inp.BVALID, inp.ARREADY, inp.RDATA, inp.RRESP, inp.RVALID),UVM_NONE);
+			`uvm_info("SCOREBOARD",$sformatf("DUT: AWREADY=%0h, WREADY=%0h, BRESP=%0h, BVALID=%0h, ARREADY=%0h, RDATA=%0h, RRESP=%0h, RVALID=%0h\nREF: AWREADY=%0h, WREADY=%0h, BRESP=%0h, BVALID=%0h, ARREADY=%0h, RDATA=%0h, RRESP=%0h, RVALID=%0h", out.AWREADY, out.WREADY, out.BRESP, out.BVALID, out.ARREADY, out.RDATA, out.RRESP, out.RVALID, inp.AWREADY, inp.WREADY, inp.BRESP, inp.BVALID, inp.ARREADY, inp.RDATA, inp.RRESP, inp.RVALID),UVM_NONE);
 		end else begin
 			++MISMATCH;
-			`uvm_info("SCOREBOARD",$sformatf("DUT: AWREADY, WREADY, BRESP, BVALID, ARREADY, RDATA, RRESP, RVALID\nREF: AWREADY, WREADY, BRESP, BVALID, ARREADY, RDATA, RRESP, RVALID\n_______________________________________________________________________________________________________________________\n_", out.AWREADY, out.WREADY, out.BRESP, out.BVALID, out.ARREADY, out.RDATA, out.RRESP, out.RVALID, inp.AWREADY, inp.WREADY, inp.BRESP, inp.BVALID, inp.ARREADY, inp.RDATA, inp.RRESP, inp.RVALID),UVM_NONE);
+			`uvm_info("SCOREBOARD",$sformatf("DUT: AWREADY=%0h, WREADY=%0h, BRESP=%0h, BVALID=%0h, ARREADY=%0h, RDATA=%0h, RRESP=%0h, RVALID=%0h\nREF: AWREADY=%0h, WREADY=%0h, BRESP=%0h, BVALID=%0h, ARREADY=%0h, RDATA=%0h, RRESP=%0h, RVALID=%0h\n_______________________________________________________________________________________________________________________\n_", out.AWREADY, out.WREADY, out.BRESP, out.BVALID, out.ARREADY, out.RDATA, out.RRESP, out.RVALID, inp.AWREADY, inp.WREADY, inp.BRESP, inp.BVALID, inp.ARREADY, inp.RDATA, inp.RRESP, inp.RVALID),UVM_NONE);
 		end
 	endtask
 
 	task ref_task(my_transaction inp);
-		if (inp.rst) begin
+		if (!inp.rst) begin
 			reset_operation();
 			reset_hold();
 			feed_held_values(inp);
@@ -99,7 +99,7 @@ class scoreboard extends uvm_scoreboard;
 		for(int i=0;i<64;i++) mem[i]=0;
 	endtask
 
-	task wr_opeartion(my_transaction tr);
+	task wr_operation(my_transaction tr);
 		if (held.AWADDR>63) begin
 			tr.BRESP=2'b11;
 		end else if ((held.AWADDR>5'h24&&held.AWADDR<5'h34)||(held.AWADDR[1:0]!=00)) begin
@@ -115,7 +115,7 @@ class scoreboard extends uvm_scoreboard;
 		end
 	endtask
 
-	task rd_opeartion(my_transaction tr);
+	task rd_operation(my_transaction tr);
 		if (held.ARADDR>63) begin
 			tr.RRESP=2'b11;
 		end else if ((held.ARADDR>5'h30&&held.ARADDR<5'h3C)||(held.ARADDR[1:0]!=00)) begin

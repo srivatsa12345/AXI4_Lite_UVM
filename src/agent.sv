@@ -1,5 +1,5 @@
 class agent extends uvm_agent;
-	`uvm_component_utils(act_agent)
+	`uvm_component_utils(agent)
 	driver drv;
 	my_sequencer sqr;
 	monitor mon;

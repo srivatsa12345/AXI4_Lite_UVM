@@ -40,7 +40,6 @@ class my_transaction extends uvm_sequence_item;
 		`uvm_field_int(WSTRB, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(WVALID, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(WREADY, UVM_ALL_ON)
-		`uvm_field_int(BREADY, UVM_ALL_ON)
 		`uvm_field_int(BVALID, UVM_ALL_ON)
 		`uvm_field_int(BREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARADDR, UVM_ALL_ON|UVM_NOCOMPARE)
