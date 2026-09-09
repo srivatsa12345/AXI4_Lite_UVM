@@ -30,25 +30,29 @@ class my_transaction extends uvm_sequence_item;
 		super.new(name);
 	endfunction
 
+	constraint awaddr{AWADDR dist{[0:63]:/100, [64:(2**(`AW)-1)]:/100};}
+	constraint araddr{ARADDR dist{[0:63]:/100, [64:(2**(`AW)-1)]:/100};}
+
 	`uvm_object_utils_begin(my_transaction)
 		`uvm_field_int(rst, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWADDR, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWPROT, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWVALID, UVM_ALL_ON|UVM_NOCOMPARE)
-		`uvm_field_int(AWREADY, UVM_ALL_ON)
+		`uvm_field_int(AWREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(WDATA, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(WSTRB, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(WVALID, UVM_ALL_ON|UVM_NOCOMPARE)
-		`uvm_field_int(WREADY, UVM_ALL_ON)
-		`uvm_field_int(BVALID, UVM_ALL_ON)
+		`uvm_field_int(WREADY, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(BRESP, UVM_ALL_ON)
+		`uvm_field_int(BVALID, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(BREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARADDR, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARPROT, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARVALID, UVM_ALL_ON|UVM_NOCOMPARE)
-		`uvm_field_int(ARREADY, UVM_ALL_ON)
+		`uvm_field_int(ARREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(RDATA, UVM_ALL_ON)
 		`uvm_field_int(RRESP, UVM_ALL_ON)
-		`uvm_field_int(RVALID, UVM_ALL_ON)
+		`uvm_field_int(RVALID, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(RREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 	`uvm_object_utils_end
 endclass

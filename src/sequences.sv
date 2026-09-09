@@ -44,7 +44,7 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 	endtask
 
 	task rand_on_protocol();
-		if ((wr_add)&&(wr_data)&&(rd_done))) begin
+		if ((wr_add)&&(wr_data)&&(rd_done)) begin
 			if(req.randomize())
 				`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 			else 
@@ -63,12 +63,12 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 			end
 		end else if ((wr_add)&&(rd_done)) begin
 			if(rsp.WVALID) begin
-				if(req.randomize() with {WDATA==rsp.WDATA; WSTRB=rsp.WSTRB; WVALID==rsp.AWVALID;})
+				if(req.randomize() with {WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; WVALID==rsp.AWVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else begin
-				if(req.randomize() with {WDATA==rsp.WDATA; WSTRB=rsp.WSTRB;})
+				if(req.randomize() with {WDATA==rsp.WDATA; WSTRB==rsp.WSTRB;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
@@ -92,12 +92,12 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if(rsp.WVALID) begin
-				if(req.randomize() with {ARADDR==rsp.ARADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; WVALID==rsp.WVALID})
+				if(req.randomize() with {ARADDR==rsp.ARADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; WVALID==rsp.WVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if(rsp.ARVALID) begin
-				if(req.randomize() with {ARADDR==rsp.ARADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARVALID==rsp.ARVALID})
+				if(req.randomize() with {ARADDR==rsp.ARADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARVALID==rsp.ARVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
@@ -109,7 +109,7 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 			end
 		end else if (rd_done) begin
 			if((rsp.WVALID)&&(rsp.AWVALID)) begin
-				if(req.randomize() with { WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; AWADDR==rsp.AWADDR; WVALID==rsp.WVALID; AWVALID=rsp.AWVALID;})
+				if(req.randomize() with { WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; AWADDR==rsp.AWADDR; WVALID==rsp.WVALID; AWVALID==rsp.AWVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
@@ -119,7 +119,7 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if(rsp.AWVALID) begin
-				if(req.randomize() with { WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; AWADDR==rsp.AWADDR; AWVALID=rsp.AWVALID;})
+				if(req.randomize() with { WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; AWADDR==rsp.AWADDR; AWVALID==rsp.AWVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
@@ -136,17 +136,17 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if(rsp.ARVALID) begin
-				if(req.randomize() with { AWADDR=rsp.AWADDR; ARADDR==rsp.ARADDR; ARVALID==rsp.ARVALID;})
+				if(req.randomize() with { AWADDR==rsp.AWADDR; ARADDR==rsp.ARADDR; ARVALID==rsp.ARVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if(rsp.AWVALID) begin
-				if(req.randomize() with { AWADDR=rsp.AWADDR; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID;})
+				if(req.randomize() with { AWADDR==rsp.AWADDR; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else begin
-				if(req.randomize() with { AWADDR=rsp.AWADDR; ARADDR==rsp.ARADDR;})
+				if(req.randomize() with { AWADDR==rsp.AWADDR; ARADDR==rsp.ARADDR;})
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
@@ -158,17 +158,17 @@ class sequences extends uvm_sequence #(my_transaction, my_transaction);
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if((rsp.AWVALID)&&(rsp.WVALID)) begin
-				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID; WVALID=rsp.WVALID; })
+				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID; WVALID==rsp.WVALID; })
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if((rsp.ARVALID)&&(rsp.WVALID)) begin
-				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; ARVALID==rsp.ARVALID; WVALID=rsp.WVALID; })
+				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; ARVALID==rsp.ARVALID; WVALID==rsp.WVALID; })
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");
 			end else if((rsp.AWVALID)&&(rsp.ARVALID)) begin
-				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID; ARVALID=rsp.ARVALID; })
+				if(req.randomize() with {AWADDR==rsp.AWADDR; WDATA==rsp.WDATA; WSTRB==rsp.WSTRB; ARADDR==rsp.ARADDR; AWVALID==rsp.AWVALID; ARVALID==rsp.ARVALID; })
 					`uvm_info("SEQ",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0b, WVALID=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d", req.AWADDR, req.AWPROT, req.AWVALID, req.WDATA, req.WSTRB, req.WVALID, req.ARADDR, req.ARPROT, req.ARVALID, req.RREADY),UVM_MEDIUM)
 				else 
 					`uvm_error("SEQ","SEQ failed");

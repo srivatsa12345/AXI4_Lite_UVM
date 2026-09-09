@@ -28,7 +28,7 @@ class test extends uvm_test;
 
 	task run();
 		seq=sequences::type_id::create("seq");
-		seq.start(env.a_ag.sqr);
+		seq.start(env.act.sqr);
 	endtask
 endclass
 

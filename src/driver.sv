@@ -1,6 +1,7 @@
 class driver extends uvm_driver#(my_transaction,my_transaction);
 	`uvm_component_utils(driver)
-	virtual my_if.DRV vif;
+	//virtual my_if.DRV vif;
+	virtual my_if vif;
 
 	function new(string name,uvm_component parent);
 		super.new(name,parent);
@@ -49,7 +50,7 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 	endtask
 
 	task rd_addr(my_transaction tr);
-		`uvm_info("DRV",$sformatf("ARADDR=%0d, ARVALID", tr.ARADDR, tr.ARVALID),UVM_MEDIUM)
+		`uvm_info("DRV",$sformatf("ARADDR=%0d, ARPROT=%0h, ARVALID=%0b", tr.ARADDR, tr.ARPROT, tr.ARVALID),UVM_MEDIUM)
 		vif.cb_drv.ARADDR<=tr.ARADDR; 
 		vif.cb_drv.ARPROT<=tr.ARPROT;
 		vif.cb_drv.ARVALID<=tr.ARVALID;
@@ -67,6 +68,7 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 
 	task get_resp(my_transaction tr);
 		$cast(rsp,tr.clone());
+		rsp.set_id_info(tr);
 		rsp.AWREADY=vif.cb_drv.AWREADY;
 		rsp.WREADY=vif.cb_drv.WREADY;
 		rsp.BVALID=vif.cb_drv.BVALID;

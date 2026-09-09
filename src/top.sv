@@ -10,7 +10,7 @@ module top;
 
 	my_if vif(.clk(clk),.rst(rst));
 
-	axi4_lite_slave m1 #(.DATA_WIDTH(`DW),.ADDR_WIDTH(`AW),.MEM_DEPTH(`MD),.DEFAULT_PROT(000)) (
+	axi4_lite_slave #(.DATA_WIDTH(`DW),.ADDR_WIDTH(`AW),.MEM_DEPTH(`MD),.DEFAULT_PROT(000)) m1 (
 	.ACLK(clk),.ARESETn(rst),
 
 	.AWADDR(vif.AWADDR),
@@ -38,7 +38,13 @@ module top;
         .RREADY(vif.RREADY)
 	);
 
-	
+	initial begin
+		rst=1;
+		#1 rst=0;
+		repeat(3)@(posedge clk);
+		#1 rst=1;
+	end	
+
 	initial begin
 		uvm_config_db#(virtual my_if)::set(null,"*","vif",vif);
 		run_test("test");

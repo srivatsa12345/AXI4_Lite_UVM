@@ -1,9 +1,7 @@
-`uvm_analysis_imp_decl(_out)
- 
 class subscriber extends uvm_subscriber#(my_transaction);
   	`uvm_component_utils(subscriber)    
   	
-	`uvm_analysis_imp_out #(my_transaction,subscriber) out_mon;  
+	uvm_analysis_imp_out #(my_transaction,subscriber) out_mon;  
   	my_transaction in_mon_xn;   
   	my_transaction out_mon_xn;  
 	covergroup input_cg;   
