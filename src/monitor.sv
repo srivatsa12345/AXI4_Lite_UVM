@@ -29,6 +29,7 @@ class monitor extends uvm_monitor;
 			@(vif.cb_mon);
 			tr.rst=vif.cb_mon.rst; 
 			tr.AWADDR=vif.cb_mon.AWADDR; 
+			tr.AWPROT=vif.cb_mon.AWPROT; 
 			tr.AWVALID=vif.cb_mon.AWVALID; 
 			tr.AWREADY=vif.cb_mon.AWREADY;
 
@@ -42,6 +43,7 @@ class monitor extends uvm_monitor;
 			tr.BREADY=vif.cb_mon.BREADY; 
 
 			tr.ARADDR=vif.cb_mon.ARADDR; 
+			tr.ARPROT=vif.cb_mon.ARPROT; 
 			tr.ARVALID=vif.cb_mon.ARVALID; 
 			tr.ARREADY=vif.cb_mon.ARREADY;
 
@@ -49,7 +51,7 @@ class monitor extends uvm_monitor;
 			tr.RDATA=vif.cb_mon.RDATA;
 			tr.RRESP=vif.cb_mon.RRESP;
 			tr.RVALID=vif.cb_mon.RVALID;
-			`uvm_info(get_full_name(),$sformatf("rst=%0d, AWADDR=%0d, AWVALID=%0d, WDATA=%0d, WSTRB=%0d, WVALID=%0d, BREADY=%0d, ARADDR=%0d, ARVALID=%0d, RREADY=%0d, AWREADY=%0d, WREADY=%0d, BRESP=%0d, BVALID=%0d, ARREADY=%0d, RDATA=%0d, RRESP=%0d, RVALID=%0d",rst, vif.cb_mon.AWADDR, vif.cb_mon.AWVALID, vif.cb_mon.WDATA, vif.cb_mon.WSTRB, vif.cb_mon.WVALID, vif.cb_mon.BREADY, vif.cb_mon.ARADDR, vif.cb_mon.ARVALID, vif.cb_mon.RREADY, vif.cb_mon.AWREADY, vif.cb_mon.WREADY, vif.cb_mon.BRESP, vif.cb_mon.BVALID, vif.cb_mon.ARREADY, vif.cb_mon.RDATA, vif.cb_mon.RRESP, vif.cb_mon.RVALID),UVM_NONE)
+			`uvm_info(get_full_name(),$sformatf("rst=%0d, AWADDR=%0d, AWPROT=%0b, AWVALID=%0d, WDATA=%0d, WSTRB=%0d, WVALID=%0d, BREADY=%0d, ARADDR=%0d, ARPROT=%0b, ARVALID=%0d, RREADY=%0d, AWREADY=%0d, WREADY=%0d, BRESP=%0d, BVALID=%0d, ARREADY=%0d, RDATA=%0d, RRESP=%0d, RVALID=%0d",rst, vif.cb_mon.AWADDR, vif.cb_mon.AWPROT, vif.cb_mon.AWVALID, vif.cb_mon.WDATA, vif.cb_mon.WSTRB, vif.cb_mon.WVALID, vif.cb_mon.BREADY, vif.cb_mon.ARADDR, vif.cb_mon.ARVALID, vif.cb_mon.RREADY, vif.cb_mon.AWREADY, vif.cb_mon.WREADY, vif.cb_mon.BRESP, vif.cb_mon.BVALID, vif.cb_mon.ARREADY, vif.cb_mon.ARPROT, vif.cb_mon.RDATA, vif.cb_mon.RRESP, vif.cb_mon.RVALID),UVM_NONE)
 			ap.write(tr);
 		end
 	endtask

@@ -16,7 +16,7 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 		forever begin
 			seq_item_port.get_next_item(req);
 			drive(req);
-			seq_item_port.item_done(resp);
+			seq_item_port.item_done(rsp);
 		end
 	endtask
 
@@ -35,8 +35,9 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 	endtask
 
 	task wr_addr(my_transaction tr);
-		`uvm_info("DRV",$sformatf("AWADDR=%0d, AWVALID=%0d", req.AWADDR, req.AWVALID),UVM_MEDIUM)
+		`uvm_info("DRV",$sformatf("AWADDR=%0d, AWPROT=%0b, AWVALID=%0d", req.AWADDR, req.AWPROT, req.AWVALID),UVM_MEDIUM)
 		vif.cb_drv.AWADDR<=tr.AWADDR;
+		vif.cb_drv.AWPROT<=tr.AWPROT;
 		vif.cb_drv.AWVALID<=tr.AWVALID;
 	endtask
 
@@ -50,6 +51,7 @@ class driver extends uvm_driver#(my_transaction,my_transaction);
 	task rd_addr(my_transaction tr);
 		`uvm_info("DRV",$sformatf("ARADDR=%0d, ARVALID", tr.ARADDR, tr.ARVALID),UVM_MEDIUM)
 		vif.cb_drv.ARADDR<=tr.ARADDR; 
+		vif.cb_drv.ARPROT<=tr.ARPROT;
 		vif.cb_drv.ARVALID<=tr.ARVALID;
 	endtask
 

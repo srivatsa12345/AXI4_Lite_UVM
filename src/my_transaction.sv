@@ -1,6 +1,7 @@
 class my_transaction extends uvm_sequence_item;
 
-	rand logic  [`AW-1:0] AWADDR;
+	rand logic [`AW-1:0] AWADDR;
+	bit [2:0] AWPROT;
 	rand logic AWVALID;
 	logic AWREADY;
 
@@ -14,6 +15,7 @@ class my_transaction extends uvm_sequence_item;
 	rand logic BREADY;
 
 	rand logic [`AW-1:0] ARADDR;
+	bit [2:0] ARPROT;
 	rand logic ARVALID;
 	logic  ARREADY;
 
@@ -31,6 +33,7 @@ class my_transaction extends uvm_sequence_item;
 	`uvm_object_utils_begin(my_transaction)
 		`uvm_field_int(rst, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWADDR, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(AWPROT, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWVALID, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(AWREADY, UVM_ALL_ON)
 		`uvm_field_int(WDATA, UVM_ALL_ON|UVM_NOCOMPARE)
@@ -41,6 +44,7 @@ class my_transaction extends uvm_sequence_item;
 		`uvm_field_int(BVALID, UVM_ALL_ON)
 		`uvm_field_int(BREADY, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARADDR, UVM_ALL_ON|UVM_NOCOMPARE)
+		`uvm_field_int(ARPROT, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARVALID, UVM_ALL_ON|UVM_NOCOMPARE)
 		`uvm_field_int(ARREADY, UVM_ALL_ON)
 		`uvm_field_int(RDATA, UVM_ALL_ON)
