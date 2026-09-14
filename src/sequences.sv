@@ -268,6 +268,7 @@ class wr_only_always_1_by_1 extends sequences;
 	
 	bit wr_add, wr_data;
 	bit rd_done;
+	bit c1,c2;
 
 	`uvm_object_utils(wr_only_always_1_by_1)
 
@@ -292,8 +293,16 @@ class wr_only_always_1_by_1 extends sequences;
 		req.WVALID=1'b0;
 		req.ARVALID=1'b0;
 		if (rsp!=null) begin
-			if (rsp.AWREADY==1'b1) req.AWVALID=1'b1;
-			else if (rsp.WREADY==1'b1) req.WVALID=1'b1;
+			if ((rsp.AWREADY==1'b1)&&(!c1)) begin 
+				req.AWVALID=1'b1; c1=1; 
+			end else begin 
+				c1=0; 
+				if ((rsp.WREADY==1'b1)&&(!c2)) begin 
+					req.WVALID=1'b1; 
+					c2=1; 
+				end else 
+					c2=0; 
+			end
 		end
 	endtask
 endclass
