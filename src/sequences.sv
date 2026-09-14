@@ -264,3 +264,35 @@ class wr_rd_always_simul extends sequences;
 	endtask
 endclass
 
+class wr_only_always_1_by_1 extends sequences;
+	
+	bit wr_add, wr_data;
+	bit rd_done;
+
+	`uvm_object_utils(wr_only_always_1_by_1)
+
+	function new (string name="wr_only_always_1_by_1");
+		super.new(name);
+	endfunction
+
+	task body();
+		repeat(`n) begin
+			req=my_transaction::type_id::create("req");
+			start_item(req);
+			rand_on_resp(req);
+			set_awvalid_wvalid_1(req);
+			print_values();
+			finish_item(req);
+			get_response(rsp);
+		end
+	endtask
+
+	task set_awvalid_wvalid_1(my_transaction tr);
+		req.AWVALID=1'b0;
+		req.WVALID=1'b0;
+		req.ARVALID=1'b0;
+		if (req.AWREADY==1'b1) req.AWVALID=1'b1;
+		else if (req.WREADY==1'b1) req.WVALID=1'b1;
+	endtask
+endclass
+
