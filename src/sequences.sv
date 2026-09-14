@@ -291,8 +291,10 @@ class wr_only_always_1_by_1 extends sequences;
 		req.AWVALID=1'b0;
 		req.WVALID=1'b0;
 		req.ARVALID=1'b0;
-		if (req.AWREADY==1'b1) req.AWVALID=1'b1;
-		else if (req.WREADY==1'b1) req.WVALID=1'b1;
+		if (rsp!=null) begin
+			if (rsp.AWREADY==1'b1) req.AWVALID=1'b1;
+			else if (rsp.WREADY==1'b1) req.WVALID=1'b1;
+		end
 	endtask
 endclass
 
