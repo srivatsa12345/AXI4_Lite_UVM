@@ -303,10 +303,12 @@ class wr_only_always_1_by_1 extends sequences;
 					req.WVALID=1'b1; 
 					c1=0; 
 				end  
-			end else if (c1 inside {[1:4]}) begin
+			end else if (c1 inside {[1:4],6,7}) begin
 				c1++;
 				req.AWVALID=1'b0;
 				req.WVALID=1'b0; 
+			end else if (c1==8) begin
+				c1=0;
 			end
 		end
 	endtask
@@ -349,12 +351,14 @@ class wr_only_always_1_by_2 extends sequences;
 			end else if (c1==5) begin 
 				if (rsp.AWREADY==1'b1) begin 
 					req.AWVALID=1'b1; 
-					c1=0; 
+					c1++; 
 				end  
-			end else if (c1 inside {[1:4]}) begin
+			end else if (c1 inside {[1:4],6,7}) begin
 				c1++;
 				req.AWVALID=1'b0;
 				req.WVALID=1'b0; 
+			end else if (c1==8) begin
+				c1=0;
 			end
 		end
 	endtask
