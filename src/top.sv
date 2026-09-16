@@ -12,10 +12,10 @@ module top;
 
 	axi4_lite_slave #(.DATA_WIDTH(`DW),.ADDR_WIDTH(`AW),.MEM_DEPTH(`MD),.DEFAULT_PROT(000)) m1 (
 	.ACLK(clk),.ARESETn(rst),
-
+		
 	.AWADDR(vif.AWADDR),
         .AWPROT(vif.AWPROT),
-   	.AWVALID(vif.AWVALID),
+	.AWVALID(vif.AWVALID),
     	.AWREADY(vif.AWREADY),
 
     	.WDATA(vif.WDATA),
@@ -43,10 +43,11 @@ module top;
 		#1 rst=0;
 		repeat(3)@(posedge clk);
 		#1 rst=1;
+		repeat(10) mid_rst();
 	end	
 
 	task mid_rst();
-		repeat(100) @ (posedge clk);
+		repeat(200) @ (posedge clk);
 		#1 rst=0;
 		repeat(2) @ (posedge clk);
 		#1 rst=1;
