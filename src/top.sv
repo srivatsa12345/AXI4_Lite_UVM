@@ -45,6 +45,12 @@ module top;
 		#1 rst=1;
 	end	
 
+	task mid_rst();
+		repeat(100) @ (posedge clk);
+		#1 rst=0;
+		repeat(2) @ (posedge clk);
+		#1 rst=1;
+	endtask
 	initial begin
 		uvm_config_db#(virtual my_if)::set(null,"*","vif",vif);
 		run_test("test");

@@ -37,4 +37,9 @@ interface my_if(input logic clk, input logic rst);
 	modport DRV(clocking cb_drv);
 	modport MON(clocking cb_mon);
 
+	checkrst:assert property (@(posedge clk) rst |-> ({AWREADY, WREADY, BVALID, BRESP, ARREADY, RVALID, RDATA, RRESP} == 0));
+	asyncrst:assert property (@(negedge clk) rst |-> ({AWREADY, WREADY, BVALID, BRESP, ARREADY, RVALID, RDATA, RRESP} == 0));
+	checkbvalid:assert property (@(posedge clk) disable iff (rst) (BVALID && !BREADY) |=> BVALID);
+	checkrvalid:assert property (@(posedge clk) disable iff (rst) (RVALID && !RREADY) |=> RVALID);
+
 endinterface
