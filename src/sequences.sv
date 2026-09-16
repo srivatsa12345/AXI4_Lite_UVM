@@ -268,7 +268,7 @@ class wr_only_always_1_by_1 extends sequences;
 	
 	bit wr_add, wr_data;
 	bit rd_done;
-	bit c1,c2;
+	int c1;
 
 	`uvm_object_utils(wr_only_always_1_by_1)
 
@@ -289,19 +289,70 @@ class wr_only_always_1_by_1 extends sequences;
 	endtask
 
 	task set_awvalid_wvalid_1(my_transaction tr);
-		req.AWVALID=1'b0;
-		req.WVALID=1'b0;
-		req.ARVALID=1'b0;
 		if (rsp!=null) begin
-			if ((rsp.AWREADY==1'b1)&&(!c1)) begin 
-				req.AWVALID=1'b1; c1=1; 
-			end else begin 
-				c1=0; 
-				if ((rsp.WREADY==1'b1)&&(!c2)) begin 
+			req.AWVALID=1'b0;
+			req.WVALID=1'b0; 
+			if (c1==0) begin
+				if(rsp.AWREADY==1'b1) begin
+					c1++;
+					req.AWVALID=1'b1;
+				end
+			end else if (c1==5) begin 
+				if (rsp.WREADY==1'b1) begin 
 					req.WVALID=1'b1; 
-					c2=1; 
-				end else 
-					c2=0; 
+					c1=0; 
+				end  
+			end else if (c1 inside {[1:4]}) begin
+				c1++;
+				req.AWVALID=1'b0;
+				req.WVALID=1'b0; 
+			end
+		end
+	endtask
+endclass
+
+class wr_only_always_1_by_2 extends sequences;
+	
+	bit wr_add, wr_data;
+	bit rd_done;
+	int c1;
+
+	`uvm_object_utils(wr_only_always_1_by_2)
+
+	function new (string name="wr_only_always_1_by_2");
+		super.new(name);
+	endfunction
+
+	task body();
+		repeat(`n) begin
+			req=my_transaction::type_id::create("req");
+			start_item(req);
+			rand_on_resp(req);
+			set_awvalid_wvalid_1(req);
+			print_values();
+			finish_item(req);
+			get_response(rsp);
+		end
+	endtask
+
+	task set_awvalid_wvalid_1(my_transaction tr);
+		if (rsp!=null) begin
+			req.AWVALID=1'b0;
+			req.WVALID=1'b0; 
+			if (c1==0) begin
+				if(rsp.WREADY==1'b1) begin
+					c1++;
+					req.WVALID=1'b1;
+				end
+			end else if (c1==5) begin 
+				if (rsp.AWREADY==1'b1) begin 
+					req.AWVALID=1'b1; 
+					c1=0; 
+				end  
+			end else if (c1 inside {[1:4]}) begin
+				c1++;
+				req.AWVALID=1'b0;
+				req.WVALID=1'b0; 
 			end
 		end
 	endtask

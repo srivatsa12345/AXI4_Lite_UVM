@@ -70,8 +70,8 @@ class scoreboard extends uvm_scoreboard;
 	endtask
 	
 	task wr_task(my_transaction tr);
-		if((tr.AWREADY)&&(tr.AWVALID)) begin held.AWADDR=tr.AWADDR; held.AWPROT=tr.AWPROT; wr_add=1; end
-		if((tr.WREADY)&&(tr.WVALID)) begin held.WDATA=tr.WDATA; held.WSTRB=tr.WSTRB; wr_data=1; end
+		if((!wr_add)&&(tr.AWREADY)&&(tr.AWVALID)) begin held.AWADDR=tr.AWADDR; held.AWPROT=tr.AWPROT; wr_add=1; end
+		if((!wr_data)&&(tr.WREADY)&&(tr.WVALID)) begin held.WDATA=tr.WDATA; held.WSTRB=tr.WSTRB; wr_data=1; end
 		if((wr_add)&&(wr_data)) if(count==1) begin gen_wr_resp(tr); wr_add=0; wr_data=0; count=0; end else count++;
 	endtask
 
@@ -112,8 +112,10 @@ class scoreboard extends uvm_scoreboard;
 	task rd_operation(my_transaction tr);
 		if (held.ARADDR>63) begin
 			tr.RRESP=2'b11;
+			tr.RDATA={`DW{1'b0}};
 		end else if ((held.ARADDR>`AW'h30&&held.ARADDR<`AW'h3C)||(held.ARADDR[1:0]!=00)) begin
 			tr.RRESP=2'b10;
+			tr.RDATA={`DW{1'b0}};
 		end else begin
 			tr.RRESP=00;
 			if(held.ARPROT==00) begin

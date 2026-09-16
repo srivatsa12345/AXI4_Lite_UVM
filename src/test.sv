@@ -5,6 +5,7 @@ class test extends uvm_test;
 	wr_rd_always_simul wr_rd;
 	wr_only_always_simul wr;
 	wr_only_always_1_by_1 wr1;
+	wr_only_always_1_by_2 wr2;
 	rd_only_always rd;
 
 	function new (string name,uvm_component parent);
@@ -52,6 +53,14 @@ class test extends uvm_test;
 			begin
 				wr1=wr_only_always_1_by_1::type_id::create("wr1");
 				wr1.start(env.act.sqr);
+			end
+			begin
+				rd=rd_only_always::type_id::create("rd");
+				rd.start(env.act.sqr);
+			end
+			begin
+				wr2=wr_only_always_1_by_2::type_id::create("wr2");
+				wr2.start(env.act.sqr);
 			end
 			begin
 				rd=rd_only_always::type_id::create("rd");
