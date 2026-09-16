@@ -290,9 +290,9 @@ class wr_only_always_1_by_1 extends sequences;
 
 	task set_awvalid_wvalid_1(my_transaction tr);
 		req.ARVALID=1'b0;
+		req.AWVALID=1'b0;
+		req.WVALID=1'b0; 
 		if (rsp!=null) begin
-			req.AWVALID=1'b0;
-			req.WVALID=1'b0; 
 			if (c1==0) begin
 				if(rsp.AWREADY==1'b1) begin
 					c1++;
@@ -305,8 +305,6 @@ class wr_only_always_1_by_1 extends sequences;
 				end  
 			end else if (c1 inside {[1:4],6,7}) begin
 				c1++;
-				req.AWVALID=1'b0;
-				req.WVALID=1'b0; 
 			end else if (c1==8) begin
 				c1=0;
 			end
@@ -340,9 +338,9 @@ class wr_only_always_1_by_2 extends sequences;
 
 	task set_awvalid_wvalid_1(my_transaction tr);
 		req.ARVALID=1'b0;
+		req.AWVALID=1'b0;
+		req.WVALID=1'b0; 
 		if (rsp!=null) begin
-			req.AWVALID=1'b0;
-			req.WVALID=1'b0; 
 			if (c1==0) begin
 				if(rsp.WREADY==1'b1) begin
 					c1++;
@@ -355,8 +353,6 @@ class wr_only_always_1_by_2 extends sequences;
 				end  
 			end else if (c1 inside {[1:4],6,7}) begin
 				c1++;
-				req.AWVALID=1'b0;
-				req.WVALID=1'b0; 
 			end else if (c1==8) begin
 				c1=0;
 			end
