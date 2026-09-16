@@ -21,7 +21,7 @@ class environment extends uvm_env;
 		act.mon.ap.connect(sc.in_mon);
 		pass.mon.ap.connect(sc.out_mon);
 		act.mon.ap.connect(sub.analysis_export);
-		//pass.mon.ap.connect(sub.out_mon);
+		pass.mon.ap.connect(sub.out_mon);
 	endfunction
 
 endclass
