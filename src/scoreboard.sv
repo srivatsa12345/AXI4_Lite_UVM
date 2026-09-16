@@ -150,6 +150,6 @@ class scoreboard extends uvm_scoreboard;
 
 	function void report_phase(uvm_phase phase);
 		super.report_phase(phase);
-		`uvm_info("SCOREBOARD",$sformatf("Total clock Cycles Checked:%0d\n Total cycles matched:%0d\n Total cycles failes:%0d",TOTAL,MATCH,MISMATCH),UVM_NONE);
+		`uvm_info("SCOREBOARD",$sformatf("\nTotal clock Cycles Checked:%0d\n Total cycles matched:%0d\n Total cycles failes:%0d",TOTAL,MATCH,MISMATCH),UVM_NONE);
 	endfunction
 endclass
