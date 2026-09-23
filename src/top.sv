@@ -48,22 +48,23 @@ module top;
 		#1 rst=0;
 		repeat(3)@(posedge clk);
 		#1 rst=1;
-		repeat(10) mid_rst();
+		repeat(100) mid_rst();
 	end	
 
 	task mid_rst();
-		repeat(200) @ (posedge clk);
+		repeat(800) @ (posedge clk);
 		#1 rst=0;
 		repeat(2) @ (posedge clk);
 		#1 rst=1;
 	endtask
 	initial begin
 		uvm_config_db#(virtual my_if)::set(null,"*","vif",vif);
-	//	run_test("test");
+		run_test();
 	end
+	
 	initial begin
-	//	$fsdbDumpfile("wave.fsdb");
-	//	$fsdbDumpvars(0, top);
-	//	$fsdbDumpMDA(); 
+		$fsdbDumpfile("wave.fsdb");
+		$fsdbDumpvars(0, top);
+		$fsdbDumpMDA(); 
 	end
 endmodule

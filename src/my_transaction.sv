@@ -1,6 +1,6 @@
 class my_transaction extends uvm_sequence_item;
 
-	randc logic [`AW-1:0] AWADDR;
+	rand logic [`AW-1:0] AWADDR;
 	bit [2:0] AWPROT;
 	rand logic AWVALID;
 	logic AWREADY;
