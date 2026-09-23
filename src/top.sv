@@ -1,6 +1,8 @@
 `include "DUT.sv"
 `include "package.sv"
 `include "interface.sv"
+`include "assertion.sv"
+
 module top;
 	import uvm_pkg::*;
 	import pkg::*;
@@ -38,6 +40,9 @@ module top;
         .RREADY(vif.RREADY)
 	);
 
+	bind axi4_lite_slave assertions #(.DATA_WIDTH(`DW)) sva (
+	.clk(ACLK), .rst(ARESETn), .RDATA(RDATA), .BRESP(BRESP), .RRESP(RRESP), .AWREADY(AWREADY), .WREADY(WREADY), .BREADY(BREADY), .BVALID(BVALID), .ARREADY(ARREADY), .RREADY(RREADY), .RVALID(RVALID));
+
 	initial begin
 		rst=1;
 		#1 rst=0;
@@ -54,6 +59,11 @@ module top;
 	endtask
 	initial begin
 		uvm_config_db#(virtual my_if)::set(null,"*","vif",vif);
-		run_test("test");
+	//	run_test("test");
+	end
+	initial begin
+	//	$fsdbDumpfile("wave.fsdb");
+	//	$fsdbDumpvars(0, top);
+	//	$fsdbDumpMDA(); 
 	end
 endmodule
